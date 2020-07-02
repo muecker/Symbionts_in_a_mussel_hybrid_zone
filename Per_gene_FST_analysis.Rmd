@@ -1,0 +1,78 @@
+---
+title: "Statistical analysis of per gene FST values of Bathymodiolus SOX symbionts"
+author: "Merle Ücker"
+date: "2020-01-21"
+output: html_notebook
+editor_options: 
+  chunk_output_type: console
+---
+#REAL DATA
+
+Get gene names
+```{bash}
+awk 'BEGIN {FS = "\t"} ; {print $4}' Per_gene_FST_SOX_symbionts_Broken_Spur.csv | sed '1d' | sort | uniq > gene_names
+```
+
+Get the script
+```{bash}
+for X in $(cat gene_names); do echo "
+sink (\"out_$X\")
+library(data.table)
+setwd(\"~\")
+FST_within_between <- fread(\"Per_gene_FST_SOX_symbionts_Broken_Spur.csv\", sep=\"\t\")
+wilcox.test (FST ~ Category, data=FST_within_between, subset = Gene == \"$X\")
+sink ()" > script_peg.$X.R; done
+```
+
+Run script and get p-values
+```{bash}
+for X in *.R; do R < $X --no-save; done
+grep -H p-value out* > p-values_FSTpergene_between_within
+```
+
+Get genes that are significant
+```{bash}
+awk 'BEGIN {OFS=" "}; {
+if ($6 <= 0.05)
+print $0;
+}' p-values_FSTpergene_between_within > significant_FSTpergene_between_within
+```
+
+#RANDOM DATASET
+Generate random dataset
+```{r}
+library(data.table)
+library(plyr)
+
+setwd("~")
+real <- fread("Per_gene_FST_SOX_symbionts_Broken_Spur.csv", sep="\t")
+random <- real[,-5]
+random$FST <- runif (n = nrow(random), min = 0, max = 1)
+
+write.table(random, file="random_pergene_FST", sep="\t",row.names = FALSE, quote = FALSE) # write out data
+```
+
+Get the script
+```{bash}
+for X in $(cat gene_names); do echo "
+sink (\"random_out_$X\")
+library(data.table)
+setwd(\"~\")
+FST_within_between <- fread(\"random_pergene_FST\", sep=\"\t\")
+wilcox.test (FST ~ Category, data=FST_within_between, subset = Gene == \"$X\")
+sink ()" > script_random.$X.R; done
+```
+
+Get p-values
+```{bash}
+for X in *random*.R; do R < $X --no-save; done
+grep -H p-value random_out* > p-values_random_FSTpergene_between_within
+```
+
+Get genes that are significant
+```{bash}
+awk 'BEGIN {OFS=" "}; {
+if ($6 <= 0.05)
+print $0;
+}' p-values_random_FSTpergene_between_within > significant_random_FSTpergene_between_within
+```

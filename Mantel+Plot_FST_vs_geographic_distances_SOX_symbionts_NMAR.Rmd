@@ -1,0 +1,95 @@
+---
+title: "Mantel test between SOX symbiont population FST and geographic distance"
+author: "Merle Ücker"
+date: "2020-06-22"
+output: html_notebook
+editor_options: 
+  chunk_output_type: console
+---
+
+Load libraries
+```{r}
+library(seqinr)
+library(adegenet)
+library(hierfstat)
+library(vegan)
+library(reshape2)
+library(ggplot2)
+```
+
+Load data
+```{r}
+# Read in the data (fasta alignment of all NMAR symbionts)
+SOX_NMAR <-read.alignment("Phylogenomics_NMAR.fasta",format = "fasta")
+
+# Read in the file with population information
+population_NMAR <- read.csv("Pop_NMAR.csv", header=FALSE, sep = ",")
+
+# Transform data into genind objects
+# The expected characters for the genind need to comprise all one letter codes for amino acids
+SOX_NMAR_gid <- alignment2genind(SOX_NMAR, pop=population_NMAR[,3], exp.char=c("g", "p", "a", "v", "l", "i", "m", "c", "f", "y", "w", "h", "k", "r", "q", "n", "e", "d", "s", "t"))
+
+# Load geographic distances
+geo_distances_NMAR <- read.csv("Geographic_distances_NMAR.csv", sep = "\t")
+row.names(geo_distances_NMAR) <- geo_distances_NMAR[,1]
+geo_distances_NMAR[,1] <- NULL
+
+# Load groups
+groups_NMAR <- read.table("Groups_NMAR.csv", header = TRUE) 
+rownames(groups_NMAR) <- groups_NMAR[,1]
+groups_NMAR[,1] <- NULL
+```
+
+Calculate FST and run Mantel test
+```{r}
+# Calculate FST with hierfstat
+FST_NMAR <- as.matrix(pairwise.fst(SOX_NMAR_gid, pop = population_NMAR[,3]))
+
+# Run stratified Mantel test
+fst_NMAR_mantel_strata <- mantel(FST_NMAR, geo_distances_NMAR, strata=groups_NMAR$Group)
+fst_NMAR_mantel_strata
+```
+
+Prepare data for plotting
+```{r}
+# Get pairwise genetic distances from dataframe and melt
+FST_NMAR[lower.tri(FST_NMAR)] <- 0
+rownames(FST_NMAR) <- c("LS-M", "LS-ET", "S", "MG-WF", "L", "R", "BS")
+colnames(FST_NMAR) <- c("LS-M", "LS-ET", "S", "MG-WF", "L", "R", "BS")
+fst_nmar_melt <- melt(FST_NMAR)
+fst_nmar_melt$name <- with(fst_nmar_melt, paste(Var1, Var2, sep = "_"))
+fst_nmar_melt <- fst_nmar_melt[,-c(1,2)]
+names(fst_nmar_melt)[1] <- "fst"
+
+# Melt geographic distances
+dist_nmar_matrix <- as.matrix(geo_distances_NMAR)
+dist_nmar_matrix[lower.tri(dist_nmar_matrix)] <- 0
+rownames(dist_nmar_matrix) <- c("LS-M", "LS-ET", "S", "MG-WF", "L", "R", "BS")
+colnames(dist_nmar_matrix) <- c("LS-M", "LS-ET", "S", "MG-WF", "L", "R", "BS")
+dist_nmar_melt <- melt(dist_nmar_matrix)
+dist_nmar_melt$name  <- with(dist_nmar_melt, paste(Var1, Var2, sep = "_"))
+dist_nmar_melt <- dist_nmar_melt[, -c(1,2)]
+names(dist_nmar_melt)[1] <- "distance"
+
+# Merge genetic and geographic distances into one dataframe & remove duplicate and zero entries
+fst_geodist_nmar <- merge(fst_nmar_melt, dist_nmar_melt)
+fst_geodist_nmar[fst_geodist_nmar==0] <- NA
+fst_geodist_nmar2 <- fst_geodist_nmar[complete.cases(fst_geodist_nmar),]
+
+# Add column for the type of symbiont subspecies comparison
+fst_geodist_nmar2$comparison <- c("bput_BS", "bazo_bput", "bazo_BS", "bazo_bput", "bazo_bazo", "bazo_bazo", "bazo_bput", "bazo_BS", "bazo_bput", "bazo_bazo", "bazo_bazo", "bazo_bazo", "bazo_bput", "bazo_BS", "bazo_bput", "bazo_bazo", "bazo_BS", "bput_BS", "bput_bput", "bazo_bput", "bazo_bput")
+```
+
+Plot geographic vs. genetic distance
+```{r}
+plot <- ggplot(fst_geodist_nmar2, aes(distance, fst, col=comparison)) +
+  geom_point(size=3) +
+  scale_colour_manual(values = c("#4e70b5",  "#ec127a","#800080", "#228b22", "#ff8c00"),
+                      breaks = c("bazo_bazo", "bput_bput", "bazo_bput", "bazo_BS", "bput_BS"),
+                      labels = c("B. azoricus vs. B. azoricus", "B. puteoserpentis vs. B. puteoserpentis", "B. azoricus vs. B. puteoserpentis","B. azoricus vs. Broken Spur", "B. puteoserpentis vs. Broken Spur"),
+                      name = "Pairwise comparison of \n Bathymodiolus symbiont subspecies") +
+  theme_minimal() +
+  xlab("Geographic distance [km]") +
+  labs(y=expression(F[ST]))
+plot
+```

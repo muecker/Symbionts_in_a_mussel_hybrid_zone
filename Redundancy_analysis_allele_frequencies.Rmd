@@ -1,0 +1,135 @@
+---
+title: "Redundancy analyses based on symbiont allele frequencies from Bathymodiolus mussels along the Northern Mid-Atlantic Ridge"
+author: "Merle Ücker"
+date: "2020-07-02"
+output: html_notebook
+editor_options: 
+  chunk_output_type: console
+---
+
+Load libraries
+```{r}
+library (ggord)
+library(vegan)
+library(ggplot2)
+library(data.table)
+library(SoDA)
+```
+
+Load data
+```{r}
+# Open gene abundances 
+freq <- fread(file = "Allele_frequencies_SOX_symbionts_NMAR.csv", header = TRUE, sep = "\t", na.strings = "-")
+rows <- freq[,1]
+freq <- freq[, -1]
+#freq <- round(freq)
+freq_transformed <- as.data.frame(t(freq))
+freq_transformed[is.na(freq_transformed)] = 0
+names(freq_transformed) = unlist(rows)
+
+# Open spatial information, scale it and transform into polynomials
+metadata <- fread(file="Metadata_for_RDA.csv", header=TRUE, sep="\t")
+space.xy = geoXY(metadata$Latitude, metadata$Longitude, unit = 100000)
+x = scale(space.xy[,1], scale=FALSE)
+y = scale(space.xy[,2], scale=FALSE)
+space = poly(cbind(x,y), degree=3, raw=FALSE)
+colnames(space) <- c("X","X2","X3","Y","XY","X2Y","Y2","XY2","Y3")
+
+# Open environmental features and species association
+rock <- as.matrix(metadata[,c(11,12)])
+species <- as.matrix(metadata[,c(7:9)])
+depth <- as.matrix(scale(metadata[,13]))
+```
+
+NMDS
+```{r}
+# Run NMDS
+nmds <- metaMDS(freq_transformed)
+
+# Get data scores and add metadata for plotting
+data.scores <- as.data.frame(scores(nmds))
+data.scores$indiv <- metadata$Sample
+metadata$Field <- factor(metadata$Field, levels = c("Menez Gwen", "Lucky Strike", "Rainbow", "Broken Spur", "Logatchev", "Semenov"))
+data.scores$grp <- metadata$Field
+data.scores$grp <- as.factor(unlist(data.scores$grp))
+metadata$Species <- factor(metadata$Species, levels = c("B. azoricus", "Bathymodiolus hybrid", "B. puteoserpentis"))
+data.scores$spec <- metadata$Species
+data.scores$spec <- as.factor(unlist(data.scores$spec))
+head(data.scores)
+
+# Plot points with ggplot
+p <- ggplot (data.scores, aes(x=NMDS1, y=NMDS2, colour=grp, shape = spec)) +
+  geom_point(size=4.5) + labs(col = "Vent field", shape = "Host species") +
+  scale_colour_manual(values = c("#9ab6d2",  "#13a1cf","#4e70b5", "#fbb01c", "#ec127a","#f3cde1")) +
+  theme_minimal() + labs(title = paste ("Stress =", round(nmds$stress, digits=2)))
+pdf ("plot_NMDS_Freq.pdf") 
+p
+dev.off()
+
+
+# Plot labels with ggplot
+t <- ggplot (data.scores, aes(x=NMDS1, y=NMDS2, colour=grp, label=indiv)) +
+  geom_text(size=4.5, alpha=0.5) + labs(col = "Vent field") +
+  scale_colour_manual(values = c("#9ab6d2",  "#13a1cf","#4e70b5", "#fbb01c", "#ec127a","#f3cde1")) +
+  theme_minimal() + labs(title = paste ("Stress =", round(nmds$stress, digits=2)))
+t
+```
+
+Redundancy analysis
+```{r}
+# Run RDA for spatial information
+rda_space = rda(freq_transformed ~ ., data.frame(space), scale= FALSE)
+(R2adj_space = RsquareAdj(rda_space)$adj.r.squared)
+
+# Forward selection and subsampling of spatial information
+select_space = ordistep(rda(freq_transformed ~ 1, data.frame(space)), scope = formula(rda_space), scale= FALSE, direction="forward", pstep = 1000, R2scop=TRUE)
+(selected_space = attributes(select_space$terms)$term.labels)
+space = space[,selected_space]
+
+# Run RDA for all explanatory variables
+geneabund_rda <- rda(freq_transformed ~ rock + depth + species + space)
+summary(geneabund_rda)
+(R2 <- RsquareAdj(geneabund_rda)$r.squared)
+(R2adj <- RsquareAdj(geneabund_rda)$adj.r.squared)
+
+# Check variance inflation factors of variables
+vif.cca(geneabund_rda) # Anything above 10 should be examined or avoided, indicates collinearity
+
+# Check variance captured by each RDA axis
+screeplot(geneabund_rda)
+
+# Permutation test of RDA Results
+anova.cca(geneabund_rda, step = 1000) # for the whole RDA
+anova.cca(geneabund_rda, by = 'axis', step = 1000) # for the axes
+anova.cca(geneabund_rda, by = 'terms', step = 1000) # for the variables
+
+# Variance partitioning
+mod <- varpart(freq_transformed, rock, depth, species, space)
+mod
+pdf ("plot_RDA_Freq_PartitioningofVariation.pdf") 
+plot(mod)
+dev.off()
+```
+
+Plot RDA triplot with ggord
+```{r}
+# Plot with text
+#pdf ("plot_RDA_GeneAbund_LocSpec_Text.pdf") 
+metadata$Field <- factor(metadata$Field, levels = c("Menez Gwen", "Lucky Strike", "Rainbow", "Broken Spur", "Logatchev", "Semenov"))
+t <- ggord(geneabund_rda, grp_in=metadata$Field, cols=c("#9ab6d2",  "#13a1cf","#4e70b5", "#fbb01c", "#ec127a","#f3cde1"), size = 5,  addcol = "black", ptslab = TRUE, grp_title = "Vent field", ellipse = FALSE)
+t + theme_minimal() + labs(title = paste ("RDA triplot: SOX symbiont gene abundances ~ Rock, Depth, Species, Space", "\n",
+                                            "(Scaling 2, wa scores)", "\n",
+                                            expression("Adjusted R² = "), round(RsquareAdj(geneabund_rda)$adj.r.squared, digits=2)))
+#dev.off() 
+  
+# Plot with points
+pdf ("plot_RDA_Freq_RockDepthSpecSpace_Points.pdf") 
+metadata$Field <- factor(metadata$Field, levels = c("Menez Gwen", "Lucky Strike", "Rainbow", "Broken Spur", "Logatchev", "Semenov"))
+p <- ggord(geneabund_rda, grp_in=metadata$Field, cols=c("#9ab6d2",  "#13a1cf","#4e70b5", "#fbb01c", "#ec127a","#f3cde1"), size = 3,  addcol = "grey", grp_title = "Vent field", ellipse = FALSE) 
+p + theme_minimal() + labs(title = paste ("RDA triplot: SOX symbiont gene abundances ~ Rock, Depth, Species, Space", "\n",
+                                            "(Scaling 2, wa scores)", "\n",
+                                          expression("Adjusted R² = "), round(RsquareAdj(geneabund_rda)$adj.r.squared, digits=2)))
+dev.off()
+```
+
+
