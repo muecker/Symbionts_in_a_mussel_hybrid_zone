@@ -1,0 +1,8 @@
+	Lucky Strike - Montsegur	Lucky Strike - Eiffel Tower	Semenov	Menez Gwen - White Flames	Logatchev Quest	Rainbow	Broken Spur
+Lucky Strike - Montsegur	0	0.575	2928	90.97	2802	186.7	1355
+Lucky Strike - Eiffel Tower	0.575	0	2928	90.88	2802	186.8	1355
+Semenov	2928	2928	0	3014	137.8	2756	1750
+Menez Gwen - White Flames	90.97	90.88	3014	0	2889	277.5	1446
+Logatchev Quest	2802	2802	137.8	2889	0	2629	1614
+Rainbow	186.7	186.8	2756	277.5	2629	0	1169
+Broken Spur	1355	1355	1750	1446	1614	1169	0
