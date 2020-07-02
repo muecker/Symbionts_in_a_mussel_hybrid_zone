@@ -1,0 +1,74 @@
+Sample	Latitude	Longitude	Field	Site	Species	B. azoricus	B. puteoserpentis	Bathymodiolus hybrid	Host rock	Basalt-hosted	Ultramafic-hosted	Depth
+1048_F	37.288	-32.276	Lucky Strike	Montsegur	B. azoricus	1	0	0	Basalt-hosted	1	0	1700
+1048_G	37.288	-32.276	Lucky Strike	Montsegur	B. azoricus	1	0	0	Basalt-hosted	1	0	1700
+1048_H	37.288	-32.276	Lucky Strike	Montsegur	B. azoricus	1	0	0	Basalt-hosted	1	0	1700
+1048_I	37.283	-32.276	Lucky Strike	Eiffel Tower	B. azoricus	1	0	0	Basalt-hosted	1	0	1689
+1048_J	38.283	-32.276	Lucky Strike	Eiffel Tower	B. azoricus	1	0	0	Basalt-hosted	1	0	1689
+1115_A_fixed	13.513	-44.963	Semenov	Semenov	B. puteoserpentis	0	1	0	Basalt-hosted	1	0	2324
+1115_B_fixed	13.513	-44.963	Semenov	Semenov	B. puteoserpentis	0	1	0	Basalt-hosted	1	0	2324
+1115_C	13.513	-44.963	Semenov	Semenov	B. puteoserpentis	0	1	0	Basalt-hosted	1	0	2324
+1586_B	37.289	-32.275	Lucky Strike	Eiffel Tower	B. azoricus	1	0	0	Basalt-hosted	1	0	1689
+1586_C	37.289	-32.275	Lucky Strike	Eiffel Tower	B. azoricus	1	0	0	Basalt-hosted	1	0	1689
+1586_D	37.289	-32.275	Lucky Strike	Eiffel Tower	B. azoricus	1	0	0	Basalt-hosted	1	0	1689
+1586_E	37.289	-32.275	Lucky Strike	Eiffel Tower	B. azoricus	1	0	0	Basalt-hosted	1	0	1689
+1586_F	37.283	-32.276	Lucky Strike	Eiffel Tower	B. azoricus	1	0	0	Basalt-hosted	1	0	1689
+1586_G	37.283	-32.276	Lucky Strike	Eiffel Tower	B. azoricus	1	0	0	Basalt-hosted	1	0	1689
+1586_I	37.283	-32.276	Lucky Strike	Eiffel Tower	B. azoricus	1	0	0	Basalt-hosted	1	0	1689
+1586_J	37.283	-32.276	Lucky Strike	Eiffel Tower	B. azoricus	1	0	0	Basalt-hosted	1	0	1689
+1586_K	37.288	-32.276	Lucky Strike	Montsegur	B. azoricus	1	0	0	Basalt-hosted	1	0	1700
+1586_N	37.288	-32.276	Lucky Strike	Montsegur	B. azoricus	1	0	0	Basalt-hosted	1	0	1700
+1586_O	37.288	-32.276	Lucky Strike	Montsegur	B. azoricus	1	0	0	Basalt-hosted	1	0	1700
+1586_P	37.844	-31.519	Menez Gwen	White Flames	B. azoricus	1	0	0	Basalt-hosted	1	0	836
+1586_Q	37.844	-31.519	Menez Gwen	White Flames	B. azoricus	1	0	0	Basalt-hosted	1	0	836
+1586_R	37.844	-31.519	Menez Gwen	White Flames	B. azoricus	1	0	0	Basalt-hosted	1	0	836
+1586_S	37.844	-31.519	Menez Gwen	White Flames	B. azoricus	1	0	0	Basalt-hosted	1	0	836
+1600_F	36.229	-33.902	Rainbow	Rainbow	B. azoricus	1	0	0	ultramafic-hosted	0	1	2273
+1600_G	36.229	-33.902	Rainbow	Rainbow	B. azoricus	1	0	0	ultramafic-hosted	0	1	2273
+1600_H	36.229	-33.902	Rainbow	Rainbow	B. azoricus	1	0	0	ultramafic-hosted	0	1	2273
+1600_I	36.229	-33.902	Rainbow	Rainbow	B. azoricus	1	0	0	ultramafic-hosted	0	1	2273
+1600_J	36.229	-33.902	Rainbow	Rainbow	B. azoricus	1	0	0	ultramafic-hosted	0	1	2273
+2065_A	14.753	-44.979	Logatchev	Quest	B. puteoserpentis	0	1	0	ultramafic-hosted	0	1	3047
+2065_B	14.753	-44.979	Logatchev	Quest	B. puteoserpentis	0	1	0	ultramafic-hosted	0	1	3047
+2065_C	14.753	-44.98	Logatchev	Quest	B. puteoserpentis	0	1	0	ultramafic-hosted	0	1	3047
+2424_E	29.1666667	-43.1666667	Broken Spur	Broken Spur	Bathymodiolus hybrid	0	0	1	Basalt-hosted	1	0	3056
+2424_N	29.1666667	-43.1666667	Broken Spur	Broken Spur	Bathymodiolus hybrid	0	0	1	Basalt-hosted	1	0	3056
+2487_A	14.753	-44.98	Logatchev	Quest	B. puteoserpentis	0	1	0	ultramafic-hosted	0	1	3047
+2487_B	14.753	-44.98	Logatchev	Quest	B. puteoserpentis	0	1	0	ultramafic-hosted	0	1	3047
+2487_C	13.514	-44.963	Logatchev	Quest	B. puteoserpentis	0	1	0	ultramafic-hosted	0	1	3047
+2487_D	13.514	-44.963	Semenov	Semenov	B. puteoserpentis	0	1	0	Basalt-hosted	1	0	2324
+2487_E	13.514	-44.963	Semenov	Semenov	B. puteoserpentis	0	1	0	Basalt-hosted	1	0	2324
+2487_F	14.753	-44.981	Semenov	Semenov	B. puteoserpentis	0	1	0	Basalt-hosted	1	0	2324
+3386_A	29.1666667	-43.1666667	Broken Spur	Broken Spur	B. puteoserpentis	0	1	0	Basalt-hosted	1	0	3045
+3386_AB	29.1666667	-43.1666667	Broken Spur	Broken Spur	B. puteoserpentis	0	1	0	Basalt-hosted	1	0	3045
+3386_AD	29.1666667	-43.1666667	Broken Spur	Broken Spur	Bathymodiolus hybrid	0	0	1	Basalt-hosted	1	0	3056
+3386_AE	29.1666667	-43.1666667	Broken Spur	Broken Spur	B. puteoserpentis	0	1	0	Basalt-hosted	1	0	3056
+3386_AG	29.1666667	-43.1666667	Broken Spur	Broken Spur	Bathymodiolus hybrid	0	0	1	Basalt-hosted	1	0	3056
+3386_AH	29.1666667	-43.1666667	Broken Spur	Broken Spur	Bathymodiolus hybrid	0	0	1	Basalt-hosted	1	0	3056
+3386_AI	29.1666667	-43.1666667	Broken Spur	Broken Spur	Bathymodiolus hybrid	0	0	1	Basalt-hosted	1	0	3056
+3386_AJ	29.1666667	-43.1666667	Broken Spur	Broken Spur	Bathymodiolus hybrid	0	0	1	Basalt-hosted	1	0	3056
+3386_AK	29.1666667	-43.1666667	Broken Spur	Broken Spur	B. puteoserpentis	0	1	0	Basalt-hosted	1	0	3056
+3386_AL	29.1666667	-43.1666667	Broken Spur	Broken Spur	Bathymodiolus hybrid	0	0	1	Basalt-hosted	1	0	3056
+3386_C	29.1666667	-43.1666667	Broken Spur	Broken Spur	Bathymodiolus hybrid	0	0	1	Basalt-hosted	1	0	3045
+3386_D	29.1666667	-43.1666667	Broken Spur	Broken Spur	B. puteoserpentis	0	1	0	Basalt-hosted	1	0	3045
+3386_E	29.1666667	-43.1666667	Broken Spur	Broken Spur	B. puteoserpentis	0	1	0	Basalt-hosted	1	0	3045
+3386_F	29.1666667	-43.1666667	Broken Spur	Broken Spur	B. puteoserpentis	0	1	0	Basalt-hosted	1	0	3045
+3386_G	29.1666667	-43.1666667	Broken Spur	Broken Spur	Bathymodiolus hybrid	0	0	1	Basalt-hosted	1	0	3045
+3386_H	29.1666667	-43.1666667	Broken Spur	Broken Spur	Bathymodiolus hybrid	0	0	1	Basalt-hosted	1	0	3045
+3386_I	29.1666667	-43.1666667	Broken Spur	Broken Spur	B. puteoserpentis	0	1	0	Basalt-hosted	1	0	3045
+3386_J	29.1666667	-43.1666667	Broken Spur	Broken Spur	Bathymodiolus hybrid	0	0	1	Basalt-hosted	1	0	3045
+3386_M	29.1666667	-43.1666667	Broken Spur	Broken Spur	Bathymodiolus hybrid	0	0	1	Basalt-hosted	1	0	3045
+3386_N	29.1666667	-43.1666667	Broken Spur	Broken Spur	Bathymodiolus hybrid	0	0	1	Basalt-hosted	1	0	3045
+3386_O	29.1666667	-43.1666667	Broken Spur	Broken Spur	B. puteoserpentis	0	1	0	Basalt-hosted	1	0	3045
+3386_S	29.1666667	-43.1666667	Broken Spur	Broken Spur	B. puteoserpentis	0	1	0	Basalt-hosted	1	0	3045
+3386_T	29.1666667	-43.1666667	Broken Spur	Broken Spur	Bathymodiolus hybrid	0	0	1	Basalt-hosted	1	0	3045
+3386_U	29.1666667	-43.1666667	Broken Spur	Broken Spur	Bathymodiolus hybrid	0	0	1	Basalt-hosted	1	0	3045
+3386_W	29.1666667	-43.1666667	Broken Spur	Broken Spur	Bathymodiolus hybrid	0	0	1	Basalt-hosted	1	0	3045
+3386_X	29.1666667	-43.1666667	Broken Spur	Broken Spur	Bathymodiolus hybrid	0	0	1	Basalt-hosted	1	0	3045
+3386_Y	29.1666667	-43.1666667	Broken Spur	Broken Spur	B. puteoserpentis	0	1	0	Basalt-hosted	1	0	3045
+3386_Z	29.1666667	-43.1666667	Broken Spur	Broken Spur	B. puteoserpentis	0	1	0	Basalt-hosted	1	0	3045
+3722_CJ	14.753	-44.981	Logatchev	Quest	B. puteoserpentis	0	1	0	ultramafic-hosted	0	1	3047
+3722_CL	14.753	-44.981	Logatchev	Quest	B. puteoserpentis	0	1	0	ultramafic-hosted	0	1	3047
+3722_CM	14.753	-44.981	Logatchev	Quest	B. puteoserpentis	0	1	0	ultramafic-hosted	0	1	3047
+3722_CN	14.753	-44.981	Logatchev	Quest	B. puteoserpentis	0	1	0	ultramafic-hosted	0	1	3047
+3722_CO	14.753	-44.981	Logatchev	Quest	B. puteoserpentis	0	1	0	ultramafic-hosted	0	1	3047
+3722_CP	14.753	-44.98	Logatchev	Quest	B. puteoserpentis	0	1	0	ultramafic-hosted	0	1	3047
