@@ -132,4 +132,3 @@ p + theme_minimal() + labs(title = paste ("RDA triplot: SOX symbiont gene abunda
 dev.off()
 ```
 
-
