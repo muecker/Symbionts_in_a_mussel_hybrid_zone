@@ -1,5 +1,5 @@
 # Symbionts in a mussel hybrid zone
-The purpose of this repository is to illustrate the analyses performed in our study about sulfur-oxidising symbionts of hybrid and parental _Bathymodiolus_ mussels in Broken Spur. The scripts should help interested readers to better understand the methods used. Please be aware that they are not tools intended for further usage.
+The purpose of this repository is to illustrate the analyses performed in our study about sulphur-oxidising (SOX) symbionts of hybrid and parental _Bathymodiolus_ mussels in Broken Spur. The scripts should help interested readers to better understand the methods used. Please be aware that they are not tools intended for further usage.
 
 ## Analysis of average nucleotide identity of _Bathymodiolus_ SOX symbionts from Broken Spur
 _Visualise ANI values of SOX symbionts at Broken Spur and test for correlation with host genetics and sampling year_ \
