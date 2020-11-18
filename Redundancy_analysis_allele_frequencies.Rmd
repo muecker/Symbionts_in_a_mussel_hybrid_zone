@@ -107,7 +107,8 @@ anova.cca(geneabund_rda, by = 'terms', step = 1000) # for the variables
 mod <- varpart(freq_transformed, rock, depth, species, space)
 mod
 pdf ("plot_RDA_Freq_PartitioningofVariation.pdf") 
-plot(mod)
+options(scipen=999)
+plot(mod, cutoff = -Inf, cex = 0.7)
 dev.off()
 ```
 
